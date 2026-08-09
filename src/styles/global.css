@@ -1,0 +1,400 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────────────────────────
+   Sanding — undangan digital pernikahan
+   Palet: ivory · plum ink · gold champagne · berry
+   Tipografi: Fraunces (display) · Jost (body) · Great Vibes (script)
+   Signature: bingkai ganda ala kartu undangan (double hairline frame)
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  --ivory: #faf6ed;
+  --paper: #fffdf7;
+  --ink: #2b2029;
+  --muted: #6f6369;
+  --gold: #b9892f;
+  --gold-soft: #eadfc4;
+  --berry: #8e3b52;
+  --berry-deep: #77304a;
+  --line: #e7dcc7;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--ivory);
+  color: var(--ink);
+  font-family: var(--font-jost), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--ink);
+}
+
+.font-display {
+  font-family: var(--font-fraunces), Georgia, serif;
+}
+.font-script {
+  font-family: var(--font-great-vibes), 'Brush Script MT', cursive;
+}
+
+/* ── Tombol ──────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, transform 0.15s;
+}
+.btn:active {
+  transform: scale(0.98);
+}
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.btn-primary {
+  background: var(--berry);
+  color: #fdf6ee;
+}
+.btn-primary:hover:not(:disabled) {
+  background: var(--berry-deep);
+}
+.btn-gold {
+  background: var(--gold);
+  color: #fffdf7;
+}
+.btn-gold:hover:not(:disabled) {
+  background: #a87a26;
+}
+.btn-outline {
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  background: transparent;
+}
+.btn-outline:hover:not(:disabled) {
+  background: rgba(43, 32, 41, 0.05);
+}
+.btn-ghost {
+  color: var(--muted);
+  background: transparent;
+}
+.btn-ghost:hover:not(:disabled) {
+  color: var(--ink);
+}
+.btn-sm {
+  padding: 0.45rem 1.05rem;
+  font-size: 0.85rem;
+}
+.btn-md {
+  padding: 0.7rem 1.5rem;
+  font-size: 0.95rem;
+}
+.btn-lg {
+  padding: 0.95rem 2.1rem;
+  font-size: 1.02rem;
+}
+
+/* ── Form ────────────────────────────────────────────────── */
+.label {
+  display: block;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.4rem;
+}
+.input,
+.textarea {
+  width: 100%;
+  border-radius: 0.8rem;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  padding: 0.68rem 0.95rem;
+  font-size: 0.95rem;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.input:focus,
+.textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(185, 137, 47, 0.18);
+}
+.input::placeholder,
+.textarea::placeholder {
+  color: #b3a697;
+}
+.textarea {
+  min-height: 6rem;
+  resize: vertical;
+}
+.input-error {
+  border-color: #b3405c !important;
+}
+.err-msg {
+  color: #a63a52;
+  font-size: 0.8rem;
+  margin-top: 0.32rem;
+}
+
+/* ── Bingkai ganda ala kartu undangan (signature) ────────── */
+.sig-frame {
+  position: relative;
+  border: 1px solid var(--line);
+  background: var(--paper);
+}
+.sig-frame::after {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border: 1px solid var(--line);
+  pointer-events: none;
+}
+
+.eyebrow {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* ── Tema undangan ───────────────────────────────────────── */
+/* 4 tema modern floral; tiap tema punya 3 varian warna yang dipilih
+   lewat atribut [data-variant] pada elemen .theme-*.
+   --t-display menentukan huruf tampilan tema. */
+.theme-gardenia { --t-display: var(--font-cormorant), Georgia, serif; }
+.theme-bouquet { --t-display: var(--font-playfair), Georgia, serif; }
+.theme-orchid { --t-display: var(--font-fraunces), Georgia, serif; }
+.theme-sakura { --t-display: var(--font-cormorant), Georgia, serif; }
+
+/* Palet bawaan per tema = varian pertamanya */
+.theme-gardenia {
+  --t-bg: #f3f0e4; --t-surface: #fcfbf3; --t-ink: #22382c; --t-muted: #68725f;
+  --t-accent: #2e5a41; --t-gold: #ae8a3b; --t-line: #d9dbc1; --t-glow: rgba(46, 90, 65, 0.1);
+}
+.theme-bouquet {
+  --t-bg: #faf2f0; --t-surface: #fefaf8; --t-ink: #46303a; --t-muted: #836e72;
+  --t-accent: #ad6265; --t-gold: #c2916a; --t-line: #ebdad7; --t-glow: rgba(173, 98, 101, 0.09);
+}
+.theme-orchid {
+  --t-bg: #231426; --t-surface: rgba(255, 255, 255, 0.05); --t-ink: #f4e9ed; --t-muted: #c3aab6;
+  --t-accent: #c27a9c; --t-gold: #d9a74f; --t-line: rgba(244, 233, 237, 0.2); --t-glow: rgba(194, 122, 156, 0.14);
+}
+.theme-sakura {
+  --t-bg: #fbf3ee; --t-surface: #fefbf7; --t-ink: #463531; --t-muted: #8a746c;
+  --t-accent: #d48677; --t-gold: #c39a63; --t-line: #f0dfd4; --t-glow: rgba(212, 134, 119, 0.1);
+}
+
+/* 12 pilihan warna */
+[data-variant='emerald'] { --t-bg: #f3f0e4; --t-surface: #fcfbf3; --t-ink: #22382c; --t-muted: #68725f; --t-accent: #2e5a41; --t-gold: #ae8a3b; --t-line: #d9dbc1; --t-glow: rgba(46, 90, 65, 0.1); }
+[data-variant='rosewood'] { --t-bg: #f7efe9; --t-surface: #fdf9f5; --t-ink: #452925; --t-muted: #7e6a60; --t-accent: #8a4a3c; --t-gold: #b98a5e; --t-line: #e8d5c8; --t-glow: rgba(138, 74, 60, 0.1); }
+[data-variant='midnight'] { --t-bg: #0e1c15; --t-surface: rgba(255, 255, 255, 0.045); --t-ink: #efe8d6; --t-muted: #96a291; --t-accent: #7fa98a; --t-gold: #c6a55c; --t-line: rgba(239, 232, 214, 0.2); --t-glow: rgba(127, 169, 138, 0.12); }
+[data-variant='blush'] { --t-bg: #faf2f0; --t-surface: #fefaf8; --t-ink: #46303a; --t-muted: #836e72; --t-accent: #ad6265; --t-gold: #c2916a; --t-line: #ebdad7; --t-glow: rgba(173, 98, 101, 0.09); }
+[data-variant='lilac'] { --t-bg: #f4f1f9; --t-surface: #fcfbfe; --t-ink: #393050; --t-muted: #7c718e; --t-accent: #8a77ae; --t-gold: #b79b7a; --t-line: #e4ddf0; --t-glow: rgba(138, 119, 174, 0.1); }
+[data-variant='terracotta'] { --t-bg: #f8efe5; --t-surface: #fdfaf4; --t-ink: #433024; --t-muted: #8a7664; --t-accent: #b4643c; --t-gold: #c29a55; --t-line: #ebdcc7; --t-glow: rgba(180, 100, 60, 0.09); }
+[data-variant='plum'] { --t-bg: #231426; --t-surface: rgba(255, 255, 255, 0.05); --t-ink: #f4e9ed; --t-muted: #c3aab6; --t-accent: #c27a9c; --t-gold: #d9a74f; --t-line: rgba(244, 233, 237, 0.2); --t-glow: rgba(194, 122, 156, 0.14); }
+[data-variant='champagne'] { --t-bg: #f7f1e4; --t-surface: #fdfbf4; --t-ink: #3a2e23; --t-muted: #877868; --t-accent: #97744e; --t-gold: #c2a15e; --t-line: #e7dcc4; --t-glow: rgba(151, 116, 78, 0.1); }
+[data-variant='forest'] { --t-bg: #131f19; --t-surface: rgba(255, 255, 255, 0.045); --t-ink: #ebf0e9; --t-muted: #97a498; --t-accent: #6d9b7e; --t-gold: #c1a45e; --t-line: rgba(235, 240, 233, 0.18); --t-glow: rgba(109, 155, 126, 0.12); }
+[data-variant='peach'] { --t-bg: #fbf3ee; --t-surface: #fefbf7; --t-ink: #463531; --t-muted: #8a746c; --t-accent: #d48677; --t-gold: #c39a63; --t-line: #f0dfd4; --t-glow: rgba(212, 134, 119, 0.1); }
+[data-variant='sky'] { --t-bg: #f0f6f8; --t-surface: #fbfdfd; --t-ink: #2f414b; --t-muted: #73858d; --t-accent: #7da3b8; --t-gold: #bc9a5c; --t-line: #dbe7eb; --t-glow: rgba(125, 163, 184, 0.1); }
+[data-variant='mint'] { --t-bg: #eff5ef; --t-surface: #fbfdfa; --t-ink: #314238; --t-muted: #74857a; --t-accent: #7da98d; --t-gold: #bc9a5c; --t-line: #dce8dd; --t-glow: rgba(125, 169, 141, 0.1); }
+
+/* ── Komponen undangan publik ────────────────────────────── */
+.inv-shell {
+  background: var(--t-bg);
+  color: var(--t-ink);
+  font-family: var(--t-display);
+  background-image: radial-gradient(120% 70% at 50% 0%, var(--t-glow), transparent 55%);
+}
+.inv-script {
+  font-family: var(--t-script);
+}
+.inv-card {
+  background: var(--t-surface);
+  border: 1px solid var(--t-line);
+}
+.inv-chip {
+  border: 1px solid var(--t-line);
+  background: var(--t-surface);
+  color: var(--t-muted);
+}
+.inv-mono {
+  display: grid;
+  place-items: center;
+  border-radius: 9999px;
+  border: 1px solid var(--t-gold);
+  color: var(--t-gold);
+  font-family: var(--t-script);
+}
+.inv-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border: 1px solid var(--t-accent);
+  color: var(--t-accent);
+  border-radius: 9999px;
+  padding: 0.55rem 1.2rem;
+  font-size: 0.85rem;
+  transition: background-color 0.2s, color 0.2s;
+}
+.inv-btn:hover {
+  background: var(--t-accent);
+  color: var(--t-bg);
+}
+.inv-cd {
+  background: var(--t-surface);
+  border: 1px solid var(--t-line);
+  border-radius: 0.9rem;
+  text-align: center;
+  padding: 0.75rem 0.4rem;
+}
+
+/* Pratinjau mini tema (kartu 3:4) */
+.inv-preview {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  background: var(--t-bg);
+  color: var(--t-ink);
+  border: 1px solid var(--t-line);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  text-align: center;
+  padding: 1.4rem 1rem;
+}
+.inv-preview::after {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px solid var(--t-line);
+  pointer-events: none;
+}
+.inv-preview .ip-orn {
+  color: var(--t-accent);
+  font-size: 0.7rem;
+}
+.inv-preview .ip-names {
+  font-family: var(--t-script);
+  font-size: clamp(1.3rem, 2.6vw, 1.9rem);
+  line-height: 1.15;
+}
+.inv-preview .ip-date {
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--t-muted);
+}
+.inv-preview .ip-rule {
+  width: 2.2rem;
+  height: 1px;
+  background: var(--t-gold);
+}
+
+/* Tombol musik mengambang */
+.inv-music {
+  position: fixed;
+  right: 1.1rem;
+  bottom: 1.2rem;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 9999px;
+  border: none;
+  background: var(--t-accent);
+  color: var(--t-bg);
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+  transition: background-color 0.2s, transform 0.15s;
+}
+.inv-music:active {
+  transform: scale(0.95);
+}
+.inv-music-disc {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 2px dashed var(--t-bg);
+  opacity: 0.5;
+  pointer-events: none;
+}
+.inv-music-on .inv-music-disc {
+  animation: disc-spin 6s linear infinite;
+}
+.inv-music-pulse::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 9999px;
+  border: 1px solid var(--t-accent);
+  animation: music-ring 2.4s ease-out infinite;
+  pointer-events: none;
+}
+@keyframes disc-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes music-ring {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
+}
+
+/* Tombol kecil di atas foto */
+.btn-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: none;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.94);
+  color: #3a3a3a;
+  padding: 0.4rem 0.85rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+.btn-inline:hover {
+  background: #ffffff;
+}
+.btn-inline-danger {
+  background: rgba(200, 55, 55, 0.94);
+  color: #fff;
+  padding: 0.4rem 0.6rem;
+}
+.btn-inline-danger:hover {
+  background: rgba(180, 40, 40, 0.95);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

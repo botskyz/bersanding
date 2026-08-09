@@ -1,0 +1,43 @@
+{
+  "name": "app",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 8080 -H 0.0.0.0",
+    "dev:smoke": "NEXT_DIST_DIR=.next-smoke next dev -H 0.0.0.0",
+    "build": "next build",
+    "start": "next start -p 8082 -H 0.0.0.0",
+    "check": "tsc --noEmit",
+    "seed": "tsx scripts/seed.ts"
+  },
+  "overrides": {
+    "postcss": "^8.5.10",
+    "esbuild": "^0.25.0"
+  },
+  "dependencies": {
+    "next": "^15.5.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "drizzle-orm": "^0.45.2",
+    "postgres": "^3.4.9",
+    "xendit-node": "^7.0.0",
+    "jose": "^6.2.3",
+    "zod": "^4.4.3",
+    "lucide-react": "^1.17.0",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.6.0",
+    "bcryptjs": "^3.0.3"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.31.10",
+    "typescript": "^5.7.0",
+    "tailwindcss": "^3.4.0",
+    "postcss": "^8.5.10",
+    "autoprefixer": "^10.4.0",
+    "@types/node": "^20.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@types/bcryptjs": "^3.0.0",
+    "tsx": "^4.23.1"
+  }
+}
