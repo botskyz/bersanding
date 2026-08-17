@@ -6,8 +6,8 @@ export function ThemePreview({
   theme,
   colorId,
   className,
-  groom = 'Andi',
-  bride = 'Sari',
+  groom = 'Pria',
+  bride = 'Wanita',
 }: {
   theme: string
   colorId?: string
