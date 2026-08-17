@@ -243,6 +243,30 @@ export const THEMES: ThemeDef[] = [
       },
     ],
   },
+  {
+    id: 'botanical',
+    name: 'Botanical Garden',
+    tagline: 'Ilustrasi taman klasik yang mewah',
+    premium: false,
+    display: 'cormorant',
+    variants: [
+      {
+        id: 'botanical-classic',
+        name: 'Botanical Classic',
+        swatch: ['#ECE1CD', '#2E5A41', '#AE8A3B'],
+        colors: {
+          bg: '#ECE1CD',
+          surface: '#FBF8F0',
+          ink: '#2E5A41',
+          muted: '#5C5245',
+          accent: '#2E5A41',
+          gold: '#AE8A3B',
+          line: '#D9DBC1',
+          glow: 'rgba(46, 90, 65, 0.1)',
+        },
+      },
+    ],
+  },
 ]
 
 export const FREE_THEME = 'gardenia'

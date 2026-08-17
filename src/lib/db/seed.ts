@@ -36,7 +36,7 @@ async function seedPayment(row: typeof pembayaran.$inferInsert) {
 }
 
 export async function seed() {
-  // Contoh premium — Gardenia Emerald, foto sampul & galeri, musik
+  // Contoh premium — Botanical Garden, foto sampul & galeri, musik
   const andiSari = await seedUndangan({
     slug: 'andi-sari',
     adminToken: 'sample-andi-sari',
@@ -58,8 +58,8 @@ export async function seed() {
     quote:
       '"Dan di antara tanda-tanda kebesaran-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu merasa tenteram kepadanya." — QS. Ar-Rum: 21',
     guestName: 'Bapak/Ibu/Saudara/i',
-    theme: 'gardenia',
-    colorId: 'emerald',
+    theme: 'botanical',
+    colorId: 'botanical-classic',
     coverPhoto: COVER_PRESETS[0].url,
     gallery: GALLERY_PRESETS.slice(0, 4).map((p) => p.url),
     musicUrl: MUSIC_PRESETS[1].url,
@@ -74,7 +74,7 @@ export async function seed() {
       status: 'PAID',
       method: 'QRIS',
       invoiceUrl: 'https://checkout.xendit.co/web/sharehalo-seed',
-      requestedTheme: 'gardenia',
+      requestedTheme: 'botanical',
       paidAt: new Date(Date.now() - 9 * 24 * 60 * 60 * 1000),
     })
   }
