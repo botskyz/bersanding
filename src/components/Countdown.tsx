@@ -5,12 +5,38 @@ function pad(n: number): string {
 }
 
 export function Countdown({ target }: { target: string }) {
-  const [now, setNow] = useState(() => Date.now())
+  const [now, setNow] = useState<number | null>(null)
 
   useEffect(() => {
+    setNow(Date.now())
     const id = setInterval(() => setNow(Date.now()), 1000)
     return () => clearInterval(id)
   }, [])
+
+  // Belum mounted di client: render skeleton dengan struktur HTML yang sama
+  // persis seperti hasil akhirnya, supaya tidak ada hydration mismatch.
+  if (now === null) {
+    return (
+      <div className="mt-14">
+        <p className="text-center text-[11px] uppercase tracking-[0.3em] text-[var(--t-muted)]">
+          Menuju hari bahagia
+        </p>
+        <div className="mt-4 grid grid-cols-4 gap-2.5 sm:gap-4">
+          {[
+            ['--', 'Hari'],
+            ['--', 'Jam'],
+            ['--', 'Menit'],
+            ['--', 'Detik'],
+          ].map(([value, label]) => (
+            <div key={label} className="inv-cd">
+              <div className="text-2xl font-medium tabular-nums sm:text-3xl">{value}</div>
+              <div className="mt-1 text-[10px] uppercase tracking-[0.2em] text-[var(--t-muted)]">{label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
 
   const diff = new Date(`${target}T00:00:00`).getTime() - now
   const arrived = diff <= 0
