@@ -1,19 +1,17 @@
-import Link from 'next/link'
+import Image from 'next/image'
 import { cn } from '@/lib/utils'
-
+ 
 export function Brand({ className, light }: { className?: string; light?: boolean }) {
   return (
-    <span
-      className={cn(
-        'font-display text-[1.35rem] font-medium tracking-tight',
-        light ? 'text-[var(--t-ink)]' : 'text-[var(--ink)]',
-        className,
-      )}
-    >
-      Sanding{' '}
-      <span className={cn('text-[0.7em] align-super', light ? 'text-[var(--t-gold)]' : 'text-[var(--gold)]')}>
-        ◆
-      </span>
+    <span className={cn('inline-flex items-center', className)}>
+      <Image
+        src="/logo-sharehalo.png"
+        alt="sharehalo"
+        width={140}
+        height={32}
+        priority
+        className="h-6 w-auto sm:h-7"
+      />
     </span>
   )
 }

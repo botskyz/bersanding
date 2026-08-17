@@ -199,7 +199,7 @@ export default function Buat() {
   const e = (name: keyof FormState) => errors[name]?.[0]
 
   return (
-    <Layout title="Buat undangan — Sanding">
+    <Layout title="Buat undangan — sharehalo">
       <div className="min-h-screen bg-[var(--ivory)]">
         <Nav />
 

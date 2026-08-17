@@ -29,7 +29,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (pending?.invoiceUrl) return res.status(200).json({ invoiceUrl: pending.invoiceUrl })
 
   const origin = `${req.headers['x-forwarded-proto'] ?? 'http'}://${req.headers.host}`
-  const externalId = `sanding-${crypto.randomUUID()}`
+  const externalId = `sharehalo-${crypto.randomUUID()}`
 
   try {
     const invoice = await Invoice.createInvoice({

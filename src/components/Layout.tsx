@@ -8,7 +8,7 @@ interface LayoutProps {
 }
 
 export function Layout({
-  title = 'Sanding — Undangan Digital Pernikahan',
+  title = 'sharehalo — Undangan Digital Pernikahan',
   description = 'Buat undangan digital pernikahan dalam satu menit: isi data, pilih tema, bagikan link. Gratis untuk mulai.',
   children,
 }: LayoutProps) {

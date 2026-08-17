@@ -1,49 +1,51 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+ 
 /* ─────────────────────────────────────────────────────────────
-   Sanding — undangan digital pernikahan
-   Palet: ivory · plum ink · gold champagne · berry
+   sharehalo — undangan digital pernikahan
+   Palet: cream · navy ink · gold · blue · orange (aksen)
    Tipografi: Fraunces (display) · Jost (body) · Great Vibes (script)
    Signature: bingkai ganda ala kartu undangan (double hairline frame)
    ───────────────────────────────────────────────────────────── */
-
+ 
 :root {
-  --ivory: #faf6ed;
-  --paper: #fffdf7;
-  --ink: #2b2029;
-  --muted: #6f6369;
-  --gold: #b9892f;
-  --gold-soft: #eadfc4;
-  --berry: #8e3b52;
-  --berry-deep: #77304a;
-  --line: #e7dcc7;
+  --ivory: #fff6e3;
+  --paper: #fffcf3;
+  --ink: #1a1a2e;
+  --muted: #6b6b76;
+  --gold: #cfb32b;
+  --gold-soft: #f2e9c6;
+  --berry: #006afe;
+  --berry-deep: #0056cc;
+  --orange: #fe6f26;
+  --orange-deep: #e05a15;
+  --line: #efe2c8;
 }
-
+ 
 html {
   scroll-behavior: smooth;
 }
-
+ 
 body {
   background-color: var(--ivory);
   color: var(--ink);
   font-family: var(--font-jost), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
-
+ 
 ::selection {
   background: var(--gold);
   color: var(--ink);
 }
-
+ 
 .font-display {
-  font-family: var(--font-fraunces), Georgia, serif;
+  font-family: var(--font-bricolage), Georgia, serif;
 }
 .font-script {
   font-family: var(--font-great-vibes), 'Brush Script MT', cursive;
 }
-
+ 
 /* ── Tombol ──────────────────────────────────────────────── */
 .btn {
   display: inline-flex;
@@ -65,7 +67,7 @@ body {
 }
 .btn-primary {
   background: var(--berry);
-  color: #fdf6ee;
+  color: #fffcf3;
 }
 .btn-primary:hover:not(:disabled) {
   background: var(--berry-deep);
@@ -75,7 +77,7 @@ body {
   color: #fffdf7;
 }
 .btn-gold:hover:not(:disabled) {
-  background: #a87a26;
+  background: #a8931f;
 }
 .btn-outline {
   border: 1px solid var(--ink);
@@ -83,7 +85,7 @@ body {
   background: transparent;
 }
 .btn-outline:hover:not(:disabled) {
-  background: rgba(43, 32, 41, 0.05);
+  background: rgba(26, 26, 46, 0.05);
 }
 .btn-ghost {
   color: var(--muted);
@@ -104,7 +106,7 @@ body {
   padding: 0.95rem 2.1rem;
   font-size: 1.02rem;
 }
-
+ 
 /* ── Form ────────────────────────────────────────────────── */
 .label {
   display: block;
@@ -130,7 +132,7 @@ body {
 .input:focus,
 .textarea:focus {
   border-color: var(--gold);
-  box-shadow: 0 0 0 3px rgba(185, 137, 47, 0.18);
+  box-shadow: 0 0 0 3px rgba(207, 179, 43, 0.18);
 }
 .input::placeholder,
 .textarea::placeholder {
@@ -148,7 +150,7 @@ body {
   font-size: 0.8rem;
   margin-top: 0.32rem;
 }
-
+ 
 /* ── Bingkai ganda ala kartu undangan (signature) ────────── */
 .sig-frame {
   position: relative;
@@ -162,7 +164,7 @@ body {
   border: 1px solid var(--line);
   pointer-events: none;
 }
-
+ 
 .eyebrow {
   font-size: 0.72rem;
   font-weight: 600;
@@ -170,17 +172,13 @@ body {
   text-transform: uppercase;
   color: var(--gold);
 }
-
-/* ── Tema undangan ───────────────────────────────────────── */
-/* 4 tema modern floral; tiap tema punya 3 varian warna yang dipilih
-   lewat atribut [data-variant] pada elemen .theme-*.
-   --t-display menentukan huruf tampilan tema. */
+ 
+/* ── Tema undangan (TIDAK diubah saat rebrand) ───────────── */
 .theme-gardenia { --t-display: var(--font-cormorant), Georgia, serif; }
 .theme-bouquet { --t-display: var(--font-playfair), Georgia, serif; }
 .theme-orchid { --t-display: var(--font-fraunces), Georgia, serif; }
 .theme-sakura { --t-display: var(--font-cormorant), Georgia, serif; }
-
-/* Palet bawaan per tema = varian pertamanya */
+ 
 .theme-gardenia {
   --t-bg: #f3f0e4; --t-surface: #fcfbf3; --t-ink: #22382c; --t-muted: #68725f;
   --t-accent: #2e5a41; --t-gold: #ae8a3b; --t-line: #d9dbc1; --t-glow: rgba(46, 90, 65, 0.1);
@@ -197,8 +195,7 @@ body {
   --t-bg: #fbf3ee; --t-surface: #fefbf7; --t-ink: #463531; --t-muted: #8a746c;
   --t-accent: #d48677; --t-gold: #c39a63; --t-line: #f0dfd4; --t-glow: rgba(212, 134, 119, 0.1);
 }
-
-/* 12 pilihan warna */
+ 
 [data-variant='emerald'] { --t-bg: #f3f0e4; --t-surface: #fcfbf3; --t-ink: #22382c; --t-muted: #68725f; --t-accent: #2e5a41; --t-gold: #ae8a3b; --t-line: #d9dbc1; --t-glow: rgba(46, 90, 65, 0.1); }
 [data-variant='rosewood'] { --t-bg: #f7efe9; --t-surface: #fdf9f5; --t-ink: #452925; --t-muted: #7e6a60; --t-accent: #8a4a3c; --t-gold: #b98a5e; --t-line: #e8d5c8; --t-glow: rgba(138, 74, 60, 0.1); }
 [data-variant='midnight'] { --t-bg: #0e1c15; --t-surface: rgba(255, 255, 255, 0.045); --t-ink: #efe8d6; --t-muted: #96a291; --t-accent: #7fa98a; --t-gold: #c6a55c; --t-line: rgba(239, 232, 214, 0.2); --t-glow: rgba(127, 169, 138, 0.12); }
@@ -211,7 +208,7 @@ body {
 [data-variant='peach'] { --t-bg: #fbf3ee; --t-surface: #fefbf7; --t-ink: #463531; --t-muted: #8a746c; --t-accent: #d48677; --t-gold: #c39a63; --t-line: #f0dfd4; --t-glow: rgba(212, 134, 119, 0.1); }
 [data-variant='sky'] { --t-bg: #f0f6f8; --t-surface: #fbfdfd; --t-ink: #2f414b; --t-muted: #73858d; --t-accent: #7da3b8; --t-gold: #bc9a5c; --t-line: #dbe7eb; --t-glow: rgba(125, 163, 184, 0.1); }
 [data-variant='mint'] { --t-bg: #eff5ef; --t-surface: #fbfdfa; --t-ink: #314238; --t-muted: #74857a; --t-accent: #7da98d; --t-gold: #bc9a5c; --t-line: #dce8dd; --t-glow: rgba(125, 169, 141, 0.1); }
-
+ 
 /* ── Komponen undangan publik ────────────────────────────── */
 .inv-shell {
   background: var(--t-bg);
@@ -261,8 +258,7 @@ body {
   text-align: center;
   padding: 0.75rem 0.4rem;
 }
-
-/* Pratinjau mini tema (kartu 3:4) */
+ 
 .inv-preview {
   position: relative;
   aspect-ratio: 3 / 4;
@@ -304,8 +300,7 @@ body {
   height: 1px;
   background: var(--t-gold);
 }
-
-/* Tombol musik mengambang */
+ 
 .inv-music {
   position: fixed;
   right: 1.1rem;
@@ -361,8 +356,7 @@ body {
     opacity: 0;
   }
 }
-
-/* Tombol kecil di atas foto */
+ 
 .btn-inline {
   display: inline-flex;
   align-items: center;
@@ -388,7 +382,7 @@ body {
 .btn-inline-danger:hover {
   background: rgba(180, 40, 40, 0.95);
 }
-
+ 
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

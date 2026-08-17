@@ -5,7 +5,7 @@ export function Nav() {
   return (
     <header className="sticky top-0 z-40 border-b border-[var(--line)] bg-[var(--ivory)]/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
-        <Link href="/" aria-label="Sanding — beranda">
+        <Link href="/" aria-label="sharehalo — beranda">
           <Brand />
         </Link>
         <nav className="flex items-center gap-3 sm:gap-5">
@@ -40,7 +40,7 @@ export function Footer() {
             Contoh undangan
           </Link>
         </div>
-        <p className="text-xs text-[var(--muted)]/70">© 2026 Sanding · Dibuat dengan ♥ di Indonesia</p>
+        <p className="text-xs text-[var(--muted)]/70">© 2026 sharehalo · Dibuat dengan ♥ di Indonesia</p>
       </div>
     </footer>
   )

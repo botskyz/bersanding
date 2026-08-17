@@ -69,11 +69,11 @@ export async function seed() {
   if (andiSari) {
     await seedPayment({
       undanganId: andiSari,
-      externalId: 'sanding-seed-andi-sari',
+      externalId: 'sharehalo-seed-andi-sari',
       amount: 99000,
       status: 'PAID',
       method: 'QRIS',
-      invoiceUrl: 'https://checkout.xendit.co/web/sanding-seed',
+      invoiceUrl: 'https://checkout.xendit.co/web/sharehalo-seed',
       requestedTheme: 'gardenia',
       paidAt: new Date(Date.now() - 9 * 24 * 60 * 60 * 1000),
     })

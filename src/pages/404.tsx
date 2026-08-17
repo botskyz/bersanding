@@ -3,7 +3,7 @@ import { Layout } from '@/components/Layout'
 
 export default function NotFound() {
   return (
-    <Layout title="Tidak ditemukan — Sanding">
+    <Layout title="Tidak ditemukan — sharehalo">
       <div className="flex min-h-screen flex-col items-center justify-center bg-[var(--ivory)] px-5 text-center">
         <p className="eyebrow">404</p>
         <h1 className="font-display mt-4 text-3xl tracking-tight">Undangan tidak ditemukan</h1>

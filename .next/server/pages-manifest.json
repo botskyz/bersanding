@@ -2,7 +2,7 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/kelola": "pages/kelola.js",
   "/": "pages/index.js",
-  "/u/[slug]": "pages/u/[slug].js"
+  "/u/[slug]": "pages/u/[slug].js",
+  "/buat": "pages/buat.js"
 }

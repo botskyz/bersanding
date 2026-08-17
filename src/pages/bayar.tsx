@@ -63,7 +63,7 @@ export default function Bayar({
   }
 
   return (
-    <Layout title="Upgrade Premium — Sanding">
+    <Layout title="Upgrade Premium — sharehalo">
       <div className="min-h-screen bg-[var(--ivory)]">
         <Nav />
         <main className="mx-auto max-w-2xl px-5 py-12 sm:px-8">

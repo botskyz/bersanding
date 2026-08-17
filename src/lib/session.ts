@@ -4,7 +4,7 @@ import { eq } from 'drizzle-orm'
 import { db } from '@/lib/db'
 import { undangan } from '@/lib/db/schema'
 
-export const ADMIN_COOKIE = 'sanding_admin'
+export const ADMIN_COOKIE = 'sharehalo_admin'
 
 export const cookieSameSite =
   process.env.NEXT_PUBLIC_IS_PLAYGROUND === 'true' ? 'none' : 'strict'

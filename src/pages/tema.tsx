@@ -81,7 +81,7 @@ export default function Tema({
   }
 
   return (
-    <Layout title="Pilih tema — Sanding">
+    <Layout title="Pilih tema — sharehalo">
       <div className="min-h-screen bg-[var(--ivory)]">
         <Nav />
         <main className="mx-auto max-w-5xl px-5 py-12 sm:px-8">

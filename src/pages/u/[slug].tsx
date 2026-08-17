@@ -46,7 +46,7 @@ interface UndProps {
 export default function U({ und, expired }: { und: UndProps; expired: boolean }) {
   if (expired) {
     return (
-      <Layout title="Undangan berakhir — Sanding">
+      <Layout title="Undangan berakhir — sharehalo">
         <div className="flex min-h-screen flex-col items-center justify-center bg-[var(--ivory)] px-5 text-center">
           <p className="eyebrow">Undangan digital</p>
           <h1 className="font-display mt-4 text-3xl tracking-tight">Undangan ini telah berakhir</h1>

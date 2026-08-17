@@ -251,7 +251,7 @@ export default function Kelola({
     }
 
     return (
-      <Layout title="Halaman kelola — Sanding">
+      <Layout title="Halaman kelola — sharehalo">
         <div className="min-h-screen bg-[var(--ivory)]">
           <Nav />
           <main className="mx-auto max-w-md px-5 py-16 sm:px-8">

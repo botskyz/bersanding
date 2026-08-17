@@ -307,7 +307,7 @@ export function Invitation({ und }: { und: InvitationData }) {
           <p className="text-xs text-[var(--t-muted)]">
             Dibuat dengan ♥ di{' '}
             <Link href="/" className="underline decoration-[var(--t-line)] underline-offset-2">
-              Sanding
+              sharehalo
             </Link>
           </p>
         </footer>
