@@ -5,7 +5,7 @@ import { Countdown } from '@/components/Countdown'
 import { MusicButton } from '@/components/MusicButton'
 import { Ornament } from '@/components/Ornament'
 import { useParallax } from '@/components/Parallax'
-import { BotanicalInvitation } from '@/components/BotanicalInvitation'
+import { BotanicalInvitation } from '@/components/themes/botanical/BotanicalInvitation'
 import {
   DEFAULT_STORY,
   calendarLink,
