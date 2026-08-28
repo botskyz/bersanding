@@ -23,7 +23,7 @@ export function BotanicalCover({
   onOpen: () => void
 }) {
   return (
-    <section className="relative -mx-5 flex min-h-[100dvh] items-center justify-center overflow-hidden bg-[#ECE1CD] py-10 text-center">
+    <section className="botanical-page relative -mx-5 flex min-h-[100dvh] items-center justify-center overflow-hidden bg-[#ECE1CD] py-10 text-center">
       {/* Grup lengkung + teks + vas bunga — satu kesatuan, full-bleed edge-to-edge */}
       <div className="relative w-full">
         <img

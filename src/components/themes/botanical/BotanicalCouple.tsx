@@ -11,6 +11,7 @@ function PersonCard({ name, parents, label, photo, flip }: PersonCardProps) {
     <div className="relative mx-auto w-full max-w-[380px]">
       {/* Karangan bunga di belakang */}
       <img
+        data-depth={0.14}
         src="/theme-botanical/page-3/wreath.png"
         alt=""
         aria-hidden
@@ -70,7 +71,7 @@ export function BotanicalCouple({
   bridePhoto: string
 }) {
   return (
-    <section className="relative -mx-5 overflow-hidden bg-[#ECE1CD] px-6 pb-20 pt-16 text-center">
+    <section className="botanical-page relative -mx-5 overflow-hidden bg-[#ECE1CD] px-6 pb-20 pt-16 text-center">
       <p className="relative mx-auto max-w-xs text-sm leading-relaxed text-[#3A4A34]">
         Kami mengundang Bapak/Ibu/Saudara/i, pada acara resepsi pernikahan anak kami,
       </p>

@@ -38,6 +38,15 @@ interface InvitationData {
 export function BotanicalInvitation({ und }: { und: InvitationData }) {
   return (
     <div className="inv-shell min-h-screen theme-botanical" data-variant={und.colorId}>
+      {/* Scroll-snap per section, khusus tema ini saja (scoped via styled-jsx) */}
+      <style jsx global>{`
+        html {
+          scroll-snap-type: y proximity;
+        }
+        .botanical-page {
+          scroll-snap-align: start;
+        }
+      `}</style>
       <div className="mx-auto max-w-xl px-5 pb-14">
         <BotanicalCover
           groomName={und.groomName}
@@ -51,10 +60,11 @@ export function BotanicalInvitation({ und }: { und: InvitationData }) {
         />
 
         {/* Pembuka */}
-        <section id="konten-mulai" className="relative -mx-5 overflow-hidden bg-[#ECE1CD] px-8 py-20 text-center">
+        <section id="konten-mulai" className="botanical-page relative -mx-5 flex min-h-[100dvh] flex-col justify-center overflow-hidden bg-[#ECE1CD] px-8 py-20 text-center">
           <div className="pointer-events-none absolute inset-x-0 top-0 -mx-3 h-56 overflow-hidden" aria-hidden>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
+              data-depth={0.16}
               src="/theme-botanical/page-3/clouds.png"
               alt=""
               className="w-full select-none object-cover"
@@ -63,7 +73,7 @@ export function BotanicalInvitation({ und }: { und: InvitationData }) {
           </div>
 
           <Ornament
-            data-depth={0.06}
+            data-depth={0.16}
             aria-hidden
             className="pointer-events-none absolute -top-10 left-1/2 -ml-36 w-72 text-[#2E5A41] opacity-15"
           />

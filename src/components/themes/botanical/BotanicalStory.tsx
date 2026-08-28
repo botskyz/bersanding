@@ -1,10 +1,11 @@
 export function BotanicalStory({ quote }: { quote: string }) {
   return (
-    <section className="relative -mx-5 overflow-hidden bg-[#ECE1CD] px-6 pb-4 pt-16 text-center">
+    <section className="botanical-page relative -mx-5 flex min-h-[100dvh] flex-col justify-center overflow-hidden bg-[#ECE1CD] px-6 pb-4 pt-16 text-center">
       {/* Awan di belakang judul */}
       <div className="pointer-events-none absolute inset-x-0 top-0 -mx-3 h-52 overflow-hidden" aria-hidden>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
+          data-depth={0.16}
           src="/theme-botanical/page-3/clouds.png"
           alt=""
           className="w-full select-none object-cover"
@@ -12,7 +13,7 @@ export function BotanicalStory({ quote }: { quote: string }) {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#ECE1CD]" />
       </div>
 
-      <p className="font-script relative text-[2.8rem] leading-none text-[#2E5A41]">Kisah Kami</p>
+      <p data-depth={0.26} className="font-script relative text-[2.8rem] leading-none text-[#2E5A41]">Kisah Kami</p>
 
       {/* Kartu putih membulat, berisi ayat — kapsul penuh, tinggi menyesuaikan panjang teks */}
       <div className="relative mx-auto mt-10 max-w-sm rounded-[2.5rem] bg-[#FBF8F0] px-8 pb-14 pt-12 shadow-sm">
@@ -24,6 +25,7 @@ export function BotanicalStory({ quote }: { quote: string }) {
 
       {/* Air mancur (sudah termasuk karangan bunga di kedua sisi, tidak perlu tambahan) — diberi jarak supaya tidak menindih kartu */}
       <img
+        data-depth={0.18}
         src="/theme-botanical/page-5/fountain.png"
         alt=""
         aria-hidden

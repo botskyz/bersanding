@@ -8,8 +8,8 @@ export function BotanicalClosing({
   brideName: string
 }) {
   return (
-    <section className="relative -mx-5 overflow-hidden bg-[#ECE1CD] pb-4 pt-10 text-center">
-      <div className="relative mx-auto aspect-[393/812] w-full">
+    <section className="botanical-page relative -mx-5 overflow-hidden bg-[#ECE1CD] pb-4 pt-10 text-center">
+      <div data-depth={0.14} className="relative mx-auto aspect-[393/812] w-full">
         <img
           src="/theme-botanical/page-8/arch-glass.png"
           alt=""
@@ -17,8 +17,8 @@ export function BotanicalClosing({
           className="pointer-events-none absolute inset-0 h-full w-full select-none"
         />
         {/* Teks, ditaruh di area transparan tengah lengkung (aman, piksel 170\u2013720 dari 812) */}
-        <div className="absolute inset-x-0 top-[27%] flex flex-col items-center px-16">
-          <p className="text-sm leading-relaxed text-[#3A4A34]">
+        <div className="absolute inset-x-0 top-[32%] flex flex-col items-center px-16">
+          <p className="mx-auto max-w-[210px] text-sm leading-relaxed text-[#3A4A34]">
             Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i{' '}
             {guestName} berkenan hadir untuk memberikan doa restu kepada kedua mempelai.
           </p>

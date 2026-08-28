@@ -8,28 +8,31 @@ export function BotanicalQuote({
   story: string
 }) {
   return (
-    <section className="relative -mx-5 overflow-hidden bg-[#ECE1CD] pb-4 pt-6 text-center">
-      {/* Lengkung emas, full width, hanya bagian atas aset yang ditampilkan (cropped) */}
-      <div className="relative h-[34rem] w-full overflow-hidden">
+    <section className="botanical-page relative -mx-5 flex min-h-[100dvh] flex-col justify-center overflow-hidden bg-[#ECE1CD] pb-4 pt-6 text-center">
+      {/* Lengkung emas \u2014 cuma dekorasi atas (di-crop), teks di BAWAHNYA sebagai
+          elemen flow biasa (bukan absolute di dalam kotak tinggi tetap), supaya
+          jarak ke elemen berikutnya selalu konsisten walau teks panjang/pendek. */}
+      <div className="relative h-72 w-full overflow-hidden">
         <img
+          data-depth={0.16}
           src="/theme-botanical/page-6/arch-gold.png"
           alt=""
           aria-hidden
           className="pointer-events-none absolute inset-x-0 top-0 w-full select-none"
         />
-        {/* Teks dimulai tepat di bawah titik terlebar lengkung (aman, tidak nabrak) */}
-        <div className="absolute inset-x-0 top-[260px] flex flex-col items-center px-12">
-          <p className="font-script text-center text-[clamp(1.3rem,6vw,2rem)] leading-snug text-[#2E5A41]">
-            {story}
-          </p>
-        </div>
       </div>
 
-      <p className="-mt-2 text-sm lowercase tracking-[0.15em] text-[#3A4A34]">
-        {groomName} &amp; {brideName}
-      </p>
+      <div data-depth={0.22} className="relative -mt-8 px-14">
+        <p className="font-script text-center text-[clamp(1.15rem,5vw,1.7rem)] leading-snug text-[#2E5A41]">
+          {story}
+        </p>
+        <p className="mt-5 text-sm lowercase tracking-[0.15em] text-[#3A4A34]">
+          {groomName} &amp; {brideName}
+        </p>
+      </div>
 
-      {/* Vas bunga kiri-kanan, full-bleed nempel di tepi layar */}
+      {/* Vas bunga kiri-kanan, full-bleed nempel di tepi layar, langsung
+          menyusul teks di atas (jarak konsisten via margin-top negatif kecil) */}
       <div className="relative -mt-6 flex items-end justify-between">
         <img
           src="/theme-botanical/page-6/floral-left.png"
@@ -47,3 +50,4 @@ export function BotanicalQuote({
     </section>
   )
 }
+

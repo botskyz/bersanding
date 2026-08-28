@@ -120,7 +120,7 @@ function EventBlock({
   )}`
   return (
     <div className="text-center">
-      <p className="font-script text-[2.6rem] leading-tight text-[#2E5A41]">{title}</p>
+      <p data-depth={0.2} className="font-script text-[2.6rem] leading-tight text-[#2E5A41]">{title}</p>
       <p className="mt-5 text-sm tracking-[0.05em] text-[#3A4A34]">
         {formatDateID(date).toUpperCase()}
       </p>
@@ -153,7 +153,7 @@ export function BotanicalEvents({
   resepsiAddress,
 }: BotanicalEventsProps) {
   return (
-    <section className="relative -mx-5 overflow-hidden bg-[#ECE1CD] px-8 py-20 text-center">
+    <section className="botanical-page relative -mx-5 flex min-h-[100dvh] flex-col justify-center overflow-hidden bg-[#ECE1CD] px-8 py-20 text-center">
       {/* Kolibri, nempel di sisi kiri, tumpang tindih antar dua acara */}
       <FlyingHummingbird className="absolute left-0 top-[38%] w-20 -mt-11 sm:w-24 sm:-mt-14" />
 
