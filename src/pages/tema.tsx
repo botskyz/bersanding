@@ -7,7 +7,7 @@ import { Layout } from '@/components/Layout'
 import { Nav } from '@/components/SiteChrome'
 import { ThemePreview } from '@/components/ThemePreview'
 import { findMine, getToken } from '@/lib/session'
-import { FREE_THEME, PREMIUM_PRICE, THEMES, formatIDR, themeById } from '@/lib/themes'
+import { PREMIUM_PRICE, THEMES, formatIDR, themeById } from '@/lib/themes'
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const token = getToken(ctx.req)
@@ -48,7 +48,8 @@ export default function Tema({
 
   const choose = async (theme: string, color: string) => {
     setError('')
-    if (!premium && theme !== FREE_THEME) {
+    const themeDef = THEMES.find((t) => t.id === theme)
+    if (!premium && themeDef?.premium) {
       router.push(`/bayar?id=${id}&theme=${theme}`)
       return
     }
@@ -92,7 +93,7 @@ export default function Tema({
           </h1>
           <p className="mt-3 max-w-xl text-sm leading-relaxed text-[var(--muted)]">
             Setiap tema punya 3 pilihan warna — klik bulatan warna untuk melihat variasinya.
-            Tema Gardenia gratis; tema lainnya terbuka setelah upgrade Premium —{' '}
+            Beberapa tema gratis; tema lainnya terbuka setelah upgrade Premium —{' '}
             {formatIDR(PREMIUM_PRICE)} sekali bayar, berlaku selamanya.
           </p>
 
