@@ -19,6 +19,7 @@ import { GalleryPicker } from '@/components/GalleryPicker'
 import { MusicPicker, type MusicSelection } from '@/components/MusicPicker'
 import { PhotoPicker } from '@/components/PhotoPicker'
 import { GALLERY_PRESETS, COVER_PRESETS } from '@/lib/photos'
+import { TimeRangeField } from '@/components/TimeRangeField'
 import { db } from '@/lib/db'
 import { pembayaran, undangan } from '@/lib/db/schema'
 import { adminCookie, findMine, getToken } from '@/lib/session'
@@ -728,11 +729,11 @@ export default function Kelola({
                 <Field label="Orang tua pria" name="groomParents" value={form.groomParents} onChange={setField} />
                 <Field label="Orang tua wanita" name="brideParents" value={form.brideParents} onChange={setField} />
                 <Field label="Tanggal akad" name="akadDate" type="date" value={form.akadDate} onChange={setField} />
-                <Field label="Jam akad" name="akadTime" type="time" value={form.akadTime} onChange={setField} />
+                <TimeRangeField label="Jam akad" value={form.akadTime} onChange={(v) => setField('akadTime', v)} />
                 <Field label="Tempat akad" name="akadLocation" value={form.akadLocation} onChange={setField} />
                 <Field label="Alamat akad" name="akadAddress" value={form.akadAddress} onChange={setField} />
                 <Field label="Tanggal resepsi" name="resepsiDate" type="date" value={form.resepsiDate} onChange={setField} />
-                <Field label="Jam resepsi" name="resepsiTime" type="time" value={form.resepsiTime} onChange={setField} />
+                <TimeRangeField label="Jam resepsi" value={form.resepsiTime} onChange={(v) => setField('resepsiTime', v)} />
                 <Field label="Tempat resepsi" name="resepsiLocation" value={form.resepsiLocation} onChange={setField} />
                 <Field label="Alamat resepsi" name="resepsiAddress" value={form.resepsiAddress} onChange={setField} />
                 <div className="sm:col-span-2">

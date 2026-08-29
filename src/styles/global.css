@@ -173,12 +173,11 @@ body {
   color: var(--gold);
 }
 
-/* ── Tema undangan ────────────────────────────────────────── */
+/* ── Tema undangan (TIDAK diubah saat rebrand) ───────────── */
 .theme-gardenia { --t-display: var(--font-cormorant), Georgia, serif; }
 .theme-bouquet { --t-display: var(--font-playfair), Georgia, serif; }
 .theme-orchid { --t-display: var(--font-fraunces), Georgia, serif; }
 .theme-sakura { --t-display: var(--font-cormorant), Georgia, serif; }
-.theme-botanical { --t-display: var(--font-cormorant), Georgia, serif; }
 
 .theme-gardenia {
   --t-bg: #f3f0e4; --t-surface: #fcfbf3; --t-ink: #22382c; --t-muted: #68725f;
@@ -196,10 +195,6 @@ body {
   --t-bg: #fbf3ee; --t-surface: #fefbf7; --t-ink: #463531; --t-muted: #8a746c;
   --t-accent: #d48677; --t-gold: #c39a63; --t-line: #f0dfd4; --t-glow: rgba(212, 134, 119, 0.1);
 }
-.theme-botanical {
-  --t-bg: #ece1cd; --t-surface: #fbf8f0; --t-ink: #2e5a41; --t-muted: #5c5245;
-  --t-accent: #2e5a41; --t-gold: #ae8a3b; --t-line: #d9dbc1; --t-glow: rgba(46, 90, 65, 0.1);
-}
 
 [data-variant='emerald'] { --t-bg: #f3f0e4; --t-surface: #fcfbf3; --t-ink: #22382c; --t-muted: #68725f; --t-accent: #2e5a41; --t-gold: #ae8a3b; --t-line: #d9dbc1; --t-glow: rgba(46, 90, 65, 0.1); }
 [data-variant='rosewood'] { --t-bg: #f7efe9; --t-surface: #fdf9f5; --t-ink: #452925; --t-muted: #7e6a60; --t-accent: #8a4a3c; --t-gold: #b98a5e; --t-line: #e8d5c8; --t-glow: rgba(138, 74, 60, 0.1); }
@@ -213,7 +208,6 @@ body {
 [data-variant='peach'] { --t-bg: #fbf3ee; --t-surface: #fefbf7; --t-ink: #463531; --t-muted: #8a746c; --t-accent: #d48677; --t-gold: #c39a63; --t-line: #f0dfd4; --t-glow: rgba(212, 134, 119, 0.1); }
 [data-variant='sky'] { --t-bg: #f0f6f8; --t-surface: #fbfdfd; --t-ink: #2f414b; --t-muted: #73858d; --t-accent: #7da3b8; --t-gold: #bc9a5c; --t-line: #dbe7eb; --t-glow: rgba(125, 163, 184, 0.1); }
 [data-variant='mint'] { --t-bg: #eff5ef; --t-surface: #fbfdfa; --t-ink: #314238; --t-muted: #74857a; --t-accent: #7da98d; --t-gold: #bc9a5c; --t-line: #dce8dd; --t-glow: rgba(125, 169, 141, 0.1); }
-[data-variant='botanical-classic'] { --t-bg: #ece1cd; --t-surface: #fbf8f0; --t-ink: #2e5a41; --t-muted: #5c5245; --t-accent: #2e5a41; --t-gold: #ae8a3b; --t-line: #d9dbc1; --t-glow: rgba(46, 90, 65, 0.1); }
 
 /* ── Komponen undangan publik ────────────────────────────── */
 .inv-shell {
@@ -387,6 +381,49 @@ body {
 }
 .btn-inline-danger:hover {
   background: rgba(180, 40, 40, 0.95);
+}
+
+/* Ayunan halus untuk elemen dekoratif (vas bunga, dedaunan gantung) —
+   meniru gerak alami tertiup angin, dipakai berulang (loop) terus. */
+@keyframes gentle-sway {
+  0%,
+  100% {
+    transform: rotate(-1.5deg);
+  }
+  50% {
+    transform: rotate(1.5deg);
+  }
+}
+.sway-a {
+  animation: gentle-sway 5s ease-in-out infinite;
+}
+.sway-b {
+  animation: gentle-sway 6s ease-in-out infinite;
+  animation-delay: -2.5s;
+}
+@keyframes gentle-sway-subtle {
+  0%,
+  100% {
+    transform: rotate(-0.6deg);
+  }
+  50% {
+    transform: rotate(0.6deg);
+  }
+}
+.sway-subtle {
+  animation: gentle-sway-subtle 7s ease-in-out infinite;
+}
+@keyframes gentle-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.035);
+  }
+}
+.breathe-slow {
+  animation: gentle-breathe 8s ease-in-out infinite;
 }
 
 /* Kolibri: terbang masuk dari kanan sekali, lalu naik-turun terus */

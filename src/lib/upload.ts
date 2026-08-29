@@ -30,8 +30,8 @@ export function fileToImageDataUrl(file: File, maxDim = 1600, quality = 0.82): P
 
 export function audioToDataUrl(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
-    if (file.size > 4 * 1024 * 1024) {
-      reject(new Error('Besar file musik maksimal 4 MB'))
+    if (file.size > 6 * 1024 * 1024) {
+      reject(new Error('Besar file musik maksimal 6 MB'))
       return
     }
     const reader = new FileReader()

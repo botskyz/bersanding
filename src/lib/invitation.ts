@@ -10,8 +10,14 @@ export function formatDateID(iso: string): string {
   }).format(new Date(y, m - 1, d))
 }
 
+// Terima "09:00" (jam tunggal), "09:00-11:00" (rentang), atau "09:00-selesai".
 export function formatTimeID(t: string): string {
-  return t ? t.replace(':', '.') + ' WIB' : ''
+  if (!t) return ''
+  const [start, end] = t.split('-')
+  const fmt = (v: string) => v.replace(':', '.')
+  if (!end) return `${fmt(start)} WIB`
+  if (end === 'selesai') return `${fmt(start)} - Selesai WIB`
+  return `${fmt(start)} - ${fmt(end)} WIB`
 }
 
 export function initials(name: string): string {
@@ -32,8 +38,16 @@ export function calendarLink(opts: {
   location: string
   address: string
 }): string {
-  const s = new Date(`${opts.date}T${opts.time || '09:00'}:00`)
-  const e = new Date(s.getTime() + 2 * 60 * 60 * 1000)
+  // opts.time bisa "09:00", "09:00-11:00", atau "09:00-selesai" — ambil jam
+  // mulai untuk waktu mulai, dan jam selesai (kalau ada & bukan "selesai")
+  // untuk waktu akhir acara di kalender.
+  const [rawStart, rawEnd] = opts.time.split('-')
+  const startTime = rawStart || '09:00'
+  const s = new Date(`${opts.date}T${startTime}:00`)
+  const e =
+    rawEnd && rawEnd !== 'selesai'
+      ? new Date(`${opts.date}T${rawEnd}:00`)
+      : new Date(s.getTime() + 2 * 60 * 60 * 1000)
   const fmt = (d: Date) => {
     const p = (n: number) => String(n).padStart(2, '0')
     return `${d.getFullYear()}${p(d.getMonth() + 1)}${p(d.getDate())}T${p(d.getHours())}${p(d.getMinutes())}00`
@@ -69,3 +83,4 @@ export function slugFromNames(groom: string, bride: string, rand: string): strin
 
 export const DEFAULT_STORY =
   'Dua hati yang dipertemukan oleh waktu, dipersatukan oleh doa. Setiap pertemuan adalah takdir, dan hari ini kami memulai babak baru bersama.'
+  

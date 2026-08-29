@@ -1,7 +1,8 @@
 import { z } from 'zod'
 
 const dateRe = /^\d{4}-\d{2}-\d{2}$/
-const timeRe = /^([01]\d|2[0-3]):[0-5]\d$/
+// Terima: "09:00" (jam tunggal), "09:00-11:00" (rentang), atau "09:00-selesai"
+const timeRe = /^([01]\d|2[0-3]):[0-5]\d(-(([01]\d|2[0-3]):[0-5]\d|selesai))?$/
 
 // Foto (URL atau data-url hasil upload) dan musik (URL atau data-url audio).
 // Data-url dibatasi agar kolom DB tidak membengkak.
@@ -12,7 +13,7 @@ export const imageRef = z
 
 export const audioRef = z
   .string()
-  .max(5_500_000, 'Musik terlalu besar — maksimal 4 MB')
+  .max(9_000_000, 'Musik terlalu besar — maksimal 6 MB')
   .refine((s) => s === '' || s.startsWith('data:audio/') || /^https?:\/\//.test(s), 'URL musik tidak valid')
 
 export const mediaSchema = z.object({
@@ -29,11 +30,11 @@ export const coreSchema = z.object({
   groomParents: z.string().trim().min(3, 'Tulis nama orang tua (contoh: Bapak A & Ibu B)'),
   brideParents: z.string().trim().min(3, 'Tulis nama orang tua (contoh: Bapak A & Ibu B)'),
   akadDate: z.string().regex(dateRe, 'Tanggal tidak valid'),
-  akadTime: z.string().regex(timeRe, 'Jam tidak valid (contoh: 09:00)'),
+  akadTime: z.string().regex(timeRe, 'Jam tidak valid (contoh: 09:00 atau 09:00-11:00)'),
   akadLocation: z.string().trim().min(2, 'Tulis nama tempat'),
   akadAddress: z.string().trim().min(3, 'Tulis alamat lengkap'),
   resepsiDate: z.string().regex(dateRe, 'Tanggal tidak valid'),
-  resepsiTime: z.string().regex(timeRe, 'Jam tidak valid (contoh: 11:00)'),
+  resepsiTime: z.string().regex(timeRe, 'Jam tidak valid (contoh: 11:00 atau 11:00-selesai)'),
   resepsiLocation: z.string().trim().min(2, 'Tulis nama tempat'),
   resepsiAddress: z.string().trim().min(3, 'Tulis alamat lengkap'),
   story: z.string().trim().max(600, 'Maksimal 600 huruf').optional().default(''),

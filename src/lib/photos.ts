@@ -27,11 +27,7 @@ export const GALLERY_PRESETS: PhotoPreset[] = [
   { url: px(10970554, 800), alt: 'Rangkaian bunga' },
 ]
 
-export const MUSIC_PRESETS: { url: string; title: string }[] = [
-  { url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', title: 'Melodi Akustik' },
-  { url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3', title: 'Piano di Senja' },
-  { url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3', title: 'Musim Semi' },
-  { url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3', title: 'Rindu yang Tenang' },
-]
+export const MUSIC_PRESETS: { 
+  url: string; title: string }[] = [ { url: '/audio/eternal-vow.mp3', title: 'Eternal Vow' }, ]
 
 export const DEFAULT_COVER = COVER_PRESETS[0].url

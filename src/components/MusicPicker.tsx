@@ -159,7 +159,7 @@ export function MusicPicker({
           className="btn btn-outline btn-sm mt-2 w-full"
         >
           {busy ? <Loader2 className="size-3.5 animate-spin" aria-hidden /> : <Upload className="size-3.5" aria-hidden />}
-          {busy ? 'Memuat…' : 'Unggah file musik (maksimal 4 MB)'}
+          {busy ? 'Memuat…' : 'Unggah file musik (maksimal 6 MB)'}
         </button>
         <input ref={fileRef} type="file" accept="audio/*" className="hidden" onChange={(e) => pick(e.target.files?.[0])} />
         {error && <p className="err-msg mt-2">{error}</p>}

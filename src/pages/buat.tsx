@@ -6,6 +6,7 @@ import { Nav } from '@/components/SiteChrome'
 import { GalleryPicker } from '@/components/GalleryPicker'
 import { MusicPicker } from '@/components/MusicPicker'
 import { PhotoPicker } from '@/components/PhotoPicker'
+import { TimeRangeField } from '@/components/TimeRangeField'
 import { COVER_PRESETS, GALLERY_PRESETS } from '@/lib/photos'
 import { mediaSchema, undanganSchema } from '@/lib/validation'
 
@@ -133,6 +134,7 @@ export default function Buat() {
   const [errors, setErrors] = useState<Errors>({})
   const [submitting, setSubmitting] = useState(false)
   const [apiError, setApiError] = useState('')
+  const [sameAsAkad, setSameAsAkad] = useState(false)
 
   const setField = (name: keyof FormState, value: string) => {
     setForm((f) => ({ ...f, [name]: value }))
@@ -142,6 +144,27 @@ export default function Buat() {
       delete next[name]
       return next
     })
+  }
+
+  const copyFromAkad = (checked: boolean) => {
+    setSameAsAkad(checked)
+    if (checked) {
+      setForm((f) => ({
+        ...f,
+        resepsiDate: f.akadDate,
+        resepsiTime: f.akadTime,
+        resepsiLocation: f.akadLocation,
+        resepsiAddress: f.akadAddress,
+      }))
+      setErrors((e) => {
+        const next = { ...e }
+        delete next.resepsiDate
+        delete next.resepsiTime
+        delete next.resepsiLocation
+        delete next.resepsiAddress
+        return next
+      })
+    }
   }
 
   const validateStep = (s: number): boolean => {
@@ -305,16 +328,36 @@ export default function Buat() {
                 <p className="font-display text-lg">Akad Nikah</p>
                 <div className="mt-5 space-y-4">
                   <Field label="Tanggal" name="akadDate" type="date" value={form.akadDate} onChange={setField} error={e('akadDate')} />
-                  <Field label="Jam" name="akadTime" type="time" value={form.akadTime} onChange={setField} error={e('akadTime')} />
+                  <TimeRangeField
+                    label="Jam"
+                    value={form.akadTime}
+                    onChange={(v) => setField('akadTime', v)}
+                    error={e('akadTime')}
+                  />
                   <Field label="Tempat" name="akadLocation" value={form.akadLocation} onChange={setField} error={e('akadLocation')} placeholder="contoh: Masjid Agung Al-Falah" />
                   <Field label="Alamat lengkap" name="akadAddress" value={form.akadAddress} onChange={setField} error={e('akadAddress')} placeholder="contoh: Jl. Diponegoro No. 12, Bandung" />
                 </div>
               </div>
               <div className="sig-frame p-7">
-                <p className="font-display text-lg">Resepsi</p>
+                <div className="flex items-center justify-between gap-3">
+                  <p className="font-display text-lg">Resepsi</p>
+                  <label className="flex items-center gap-1.5 text-xs text-[var(--muted)]">
+                    <input
+                      type="checkbox"
+                      checked={sameAsAkad}
+                      onChange={(ev) => copyFromAkad(ev.target.checked)}
+                    />
+                    Sama dengan Akad
+                  </label>
+                </div>
                 <div className="mt-5 space-y-4">
                   <Field label="Tanggal" name="resepsiDate" type="date" value={form.resepsiDate} onChange={setField} error={e('resepsiDate')} />
-                  <Field label="Jam" name="resepsiTime" type="time" value={form.resepsiTime} onChange={setField} error={e('resepsiTime')} />
+                  <TimeRangeField
+                    label="Jam"
+                    value={form.resepsiTime}
+                    onChange={(v) => setField('resepsiTime', v)}
+                    error={e('resepsiTime')}
+                  />
                   <Field label="Tempat" name="resepsiLocation" value={form.resepsiLocation} onChange={setField} error={e('resepsiLocation')} placeholder="contoh: Gedung Sangkuriang" />
                   <Field label="Alamat lengkap" name="resepsiAddress" value={form.resepsiAddress} onChange={setField} error={e('resepsiAddress')} placeholder="contoh: Jl. Asia Afrika No. 55, Bandung" />
                 </div>

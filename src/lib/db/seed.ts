@@ -62,8 +62,8 @@ export async function seed() {
     colorId: 'botanical-classic',
     coverPhoto: COVER_PRESETS[0].url,
     gallery: GALLERY_PRESETS.slice(0, 4).map((p) => p.url),
-    musicUrl: MUSIC_PRESETS[1].url,
-    musicTitle: MUSIC_PRESETS[1].title,
+    musicUrl: MUSIC_PRESETS[0].url,
+    musicTitle: MUSIC_PRESETS[0].title,
     package: 'premium',
   })
   if (andiSari) {
@@ -110,3 +110,4 @@ export async function seed() {
     expiresAt: new Date(Date.now() + 20 * 24 * 60 * 60 * 1000),
   })
 }
+
