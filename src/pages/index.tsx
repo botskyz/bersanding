@@ -100,7 +100,7 @@ export default function Home() {
               <ThemePreview theme="bouquet" colorId="blush" className="shadow-xl shadow-[var(--ink)]/10" />
             </div>
             <div className="absolute left-1/2 top-1/2 w-52 -translate-x-1/2 -translate-y-1/2 rotate-2 sm:w-60">
-              <ThemePreview theme="orchid" colorId="plum" className="shadow-2xl shadow-[var(--ink)]/25" />
+              <ThemePreview theme="botanical" className="shadow-xl shadow-[var(--ink)]/25" />
             </div>
             <div className="absolute -left-1 bottom-24 rounded-full border border-[var(--gold-soft)] bg-[var(--paper)] px-4 py-2 text-xs font-semibold text-[var(--gold)] shadow-lg shadow-[var(--ink)]/5 sm:-left-4">
               {formatIDR(PREMIUM_PRICE)} · sekali bayar
