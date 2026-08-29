@@ -2,12 +2,12 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import type { GetServerSideProps } from 'next'
 import Link from 'next/link'
-import { Check, Lock } from 'lucide-react'
+import { Lock } from 'lucide-react'
 import { Layout } from '@/components/Layout'
 import { Nav } from '@/components/SiteChrome'
 import { ThemePreview } from '@/components/ThemePreview'
 import { findMine, getToken } from '@/lib/session'
-import { PREMIUM_PRICE, THEMES, formatIDR, themeById } from '@/lib/themes'
+import { PREMIUM_PRICE, THEMES, formatIDR } from '@/lib/themes'
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const token = getToken(ctx.req)
@@ -18,8 +18,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       id: u.id,
       groom: u.groomName,
       bride: u.brideName,
-      current: u.theme,
-      colorId: u.colorId,
       premium: u.package === 'premium',
     },
   }
@@ -29,23 +27,19 @@ export default function Tema({
   id,
   groom,
   bride,
-  current,
-  colorId,
   premium,
 }: {
   id: string
   groom: string
   bride: string
-  current: string
-  colorId: string
   premium: boolean
 }) {
   const router = useRouter()
-  const [selTheme, setSelTheme] = useState(current)
-  const [selColor, setSelColor] = useState(colorId)
   const [busy, setBusy] = useState<string | null>(null)
   const [error, setError] = useState('')
 
+  // Klik kartu/warna LANGSUNG menyimpan & lanjut — tidak ada langkah konfirmasi
+  // terpisah, karena ini setup awal (belum ada tema tersimpan yang bisa "hilang").
   const choose = async (theme: string, color: string) => {
     setError('')
     const themeDef = THEMES.find((t) => t.id === theme)
@@ -70,17 +64,6 @@ export default function Tema({
     }
   }
 
-  const selectTheme = (t: (typeof THEMES)[number]) => {
-    if (selTheme === t.id) return
-    setSelTheme(t.id)
-    setSelColor(t.variants[0].id)
-  }
-
-  const selectColor = (t: (typeof THEMES)[number], v: (typeof THEMES)[number]['variants'][number]) => {
-    setSelTheme(t.id)
-    setSelColor(v.id)
-  }
-
   return (
     <Layout title="Pilih tema — sharehalo">
       <div className="min-h-screen bg-[var(--ivory)]">
@@ -92,8 +75,8 @@ export default function Tema({
             <span className="font-script text-[var(--gold)]">pilih tema</span>
           </h1>
           <p className="mt-3 max-w-xl text-sm leading-relaxed text-[var(--muted)]">
-            Setiap tema punya 3 pilihan warna — klik bulatan warna untuk melihat variasinya.
-            Beberapa tema gratis; tema lainnya terbuka setelah upgrade Premium —{' '}
+            Klik salah satu tema atau warna untuk langsung memakainya. Beberapa tema
+            gratis; tema lainnya terbuka setelah upgrade Premium —{' '}
             {formatIDR(PREMIUM_PRICE)} sekali bayar, berlaku selamanya.
           </p>
 
@@ -106,28 +89,28 @@ export default function Tema({
           <div className="mt-10 grid grid-cols-2 gap-5 lg:grid-cols-4">
             {THEMES.map((t) => {
               const locked = !premium && t.premium
-              const selected = selTheme === t.id
-              const previewColor = selected ? selColor : t.variants[0].id
+              const isBusy = busy === t.id
               return (
                 <div key={t.id} className="group">
                   <button
-                    onClick={() => selectTheme(t)}
-                    className="block w-full text-left transition-transform duration-200 group-hover:-translate-y-1"
+                    onClick={() => choose(t.id, t.variants[0].id)}
+                    disabled={busy !== null}
+                    className="block w-full text-left transition-transform duration-200 group-hover:-translate-y-1 disabled:opacity-60"
                   >
                     <div className="relative">
                       <ThemePreview
                         theme={t.id}
-                        colorId={previewColor}
-                        className={`shadow-lg shadow-[var(--ink)]/5 ${selected ? 'ring-2 ring-[var(--gold)] ring-offset-2 ring-offset-[var(--ivory)]' : ''}`}
+                        colorId={t.variants[0].id}
+                        className="shadow-lg shadow-[var(--ink)]/5"
                       />
                       {locked && (
                         <span className="absolute right-2 top-2 grid size-8 place-items-center rounded-full bg-[var(--ink)]/80 text-white backdrop-blur">
                           <Lock className="size-3.5" aria-hidden />
                         </span>
                       )}
-                      {selected && (
-                        <span className="absolute left-2 top-2 inline-flex items-center gap-1 rounded-full bg-[var(--gold)] px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-[#fffdf7]">
-                          <Check className="size-3" aria-hidden /> Aktif
+                      {isBusy && (
+                        <span className="absolute inset-0 grid place-items-center rounded-[inherit] bg-white/70 text-sm font-semibold text-[var(--ink)]">
+                          Menyimpan…
                         </span>
                       )}
                     </div>
@@ -147,37 +130,24 @@ export default function Tema({
                       {t.premium ? 'Premium' : 'Gratis'}
                     </span>
                   </div>
-                  {/* Pilihan warna */}
+                  {/* Pilihan warna — klik langsung pakai warna itu */}
                   <div className="mt-2.5 flex items-center gap-2">
                     {t.variants.map((v) => (
                       <button
                         key={v.id}
                         type="button"
-                        onClick={() => selectColor(t, v)}
+                        onClick={() => choose(t.id, v.id)}
+                        disabled={busy !== null}
                         title={v.name}
-                        aria-label={`${t.name} — warna ${v.name}`}
-                        className={`size-5 rounded-full border transition-transform hover:scale-110 ${
-                          selected && selColor === v.id
-                            ? 'ring-2 ring-[var(--gold)] ring-offset-2 ring-offset-[var(--ivory)]'
-                            : ''
-                        }`}
+                        aria-label={`Pakai ${t.name} — warna ${v.name}`}
+                        className="size-5 rounded-full border transition-transform hover:scale-110 disabled:opacity-60"
                         style={{ background: v.swatch[1], borderColor: v.swatch[2] }}
                       />
                     ))}
                   </div>
-                  <button
-                    onClick={() => choose(t.id, selected ? selColor : t.variants[0].id)}
-                    disabled={busy !== null}
-                    className="mt-3 text-sm font-semibold text-[var(--berry)] disabled:opacity-60"
-                  >
-                    {locked
-                      ? `Upgrade ${formatIDR(PREMIUM_PRICE)}`
-                      : busy === t.id
-                        ? 'Menyimpan…'
-                        : selected
-                          ? 'Pakai tema & warna ini →'
-                          : 'Pakai tema ini →'}
-                  </button>
+                  <p className="mt-3 text-sm font-semibold text-[var(--berry)]">
+                    {locked ? `Upgrade ${formatIDR(PREMIUM_PRICE)}` : 'Klik untuk pakai →'}
+                  </p>
                 </div>
               )
             })}
