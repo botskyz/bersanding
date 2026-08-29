@@ -219,6 +219,11 @@ export default function Kelola({
   const [theme, setTheme] = useState<string>(und?.theme ?? 'gardenia')
   const [colorId, setColorId] = useState<string>(und?.colorId ?? 'emerald')
   const [themeBusy, setThemeBusy] = useState(false)
+  // Tahap ganti tema: false = cuma tampilkan tema aktif; true = tampilkan semua pilihan.
+  const [themeExpanded, setThemeExpanded] = useState(false)
+  // Pilihan yang di-"staging" dulu (belum tersimpan) saat grid tema terbuka.
+  const [stagedTheme, setStagedTheme] = useState<string>(und?.theme ?? 'gardenia')
+  const [stagedColor, setStagedColor] = useState<string>(und?.colorId ?? 'emerald')
   const [cover, setCover] = useState(und?.coverPhoto ?? '')
   const [gallery, setGallery] = useState<string[]>(und?.gallery ?? [])
   const [music, setMusic] = useState<MusicSelection | null>(
@@ -287,6 +292,7 @@ export default function Kelola({
   const inviteUrl =
     typeof window !== 'undefined' ? window.location.origin + '/u/' + und.slug : `/u/${und.slug}`
   const expiry = und.expiresAt ? new Date(und.expiresAt as string) : null
+  const activeThemeDef = THEMES.find((t) => t.id === theme) ?? THEMES[0]
 
   const copy = async () => {
     try {
@@ -358,10 +364,34 @@ export default function Kelola({
     saveMedia({ musicUrl: v?.url ?? '', musicTitle: v?.title ?? '' })
   }
 
-  const pickTheme = async (t: string, color?: string) => {
-    const themeDef = THEMES.find((x) => x.id === t)!
+  // Buka grid pilihan tema, mulai staging dari tema yang sedang aktif.
+  const openThemePicker = () => {
+    setStagedTheme(theme)
+    setStagedColor(colorId)
+    setThemeExpanded(true)
+  }
+
+  const cancelThemePicker = () => {
+    setThemeExpanded(false)
+  }
+
+  // Klik kartu/warna di grid HANYA staging — belum menyimpan apa pun.
+  const stageTheme = (t: string) => {
+    if (stagedTheme === t) return
+    const def = THEMES.find((x) => x.id === t)!
+    setStagedTheme(t)
+    setStagedColor(def.variants[0].id)
+  }
+  const stageColor = (t: string, color: string) => {
+    setStagedTheme(t)
+    setStagedColor(color)
+  }
+
+  // Konfirmasi — baru di sini beneran simpan ke server.
+  const confirmTheme = async () => {
+    const themeDef = THEMES.find((x) => x.id === stagedTheme)!
     if (!isPremium && themeDef.premium) {
-      router.push(`/bayar?id=${und.id}&theme=${t}`)
+      router.push(`/bayar?id=${und.id}&theme=${stagedTheme}`)
       return
     }
     setThemeBusy(true)
@@ -369,11 +399,12 @@ export default function Kelola({
       const res = await fetch(`/api/undangan/${und.id}/theme`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ theme: t, colorId: color }),
+        body: JSON.stringify({ theme: stagedTheme, colorId: stagedColor }),
       })
       if (res.ok) {
-        setTheme(t)
-        setColorId(color ?? themeDef.variants[0].id)
+        setTheme(stagedTheme)
+        setColorId(stagedColor)
+        setThemeExpanded(false)
       }
     } finally {
       setThemeBusy(false)
@@ -544,58 +575,101 @@ export default function Kelola({
           {/* Tema */}
           <section className="mt-12">
             <h2 className="font-display text-xl">Tema</h2>
-            <p className="mt-1 text-sm text-[var(--muted)]">
-              {isPremium
-                ? 'Semua tema & warna terbuka — klik untuk mengganti, hasilnya langsung tampil.'
-                : 'Tema Gardenia gratis. Tema lain terbuka setelah upgrade Premium.'}
-            </p>
-            <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
-              {THEMES.map((t) => {
-                const locked = !isPremium && t.premium
-                const active = theme === t.id
-                return (
-                  <div key={t.id} className="group text-left">
-                    <button
-                      onClick={() => pickTheme(t.id)}
-                      disabled={themeBusy}
-                      className="w-full disabled:opacity-60"
-                    >
-                      <ThemePreview
-                        theme={t.id}
-                        colorId={active ? colorId : t.variants[0].id}
-                        className={`${active ? 'ring-2 ring-[var(--gold)] ring-offset-2 ring-offset-[var(--ivory)]' : 'opacity-90 group-hover:opacity-100'}`}
-                      />
-                    </button>
-                    <div className="mt-2.5 flex items-center justify-between gap-2">
-                      <p className="text-sm font-medium">{t.name}</p>
-                      {locked && (
-                        <span className="grid size-6 shrink-0 place-items-center rounded-full bg-[var(--ink)]/80 text-white">
-                          <Lock className="size-3" aria-hidden />
-                        </span>
-                      )}
-                    </div>
-                    {/* Pilihan warna tema ini */}
-                    <div className="mt-2 flex gap-1.5">
-                      {t.variants.map((v) => {
-                        const colorActive = active && colorId === v.id
-                        return (
-                          <button
-                            key={v.id}
-                            type="button"
-                            onClick={() => pickTheme(t.id, v.id)}
-                            disabled={themeBusy}
-                            title={v.name}
-                            aria-label={`${t.name} — warna ${v.name}`}
-                            className={`size-4 rounded-full border transition-transform hover:scale-110 disabled:opacity-60 ${colorActive ? 'ring-2 ring-[var(--gold)] ring-offset-1 ring-offset-[var(--ivory)]' : ''}`}
-                            style={{ background: v.swatch[1], borderColor: v.swatch[2] }}
-                          />
-                        )
-                      })}
-                    </div>
+
+            {!themeExpanded ? (
+              <>
+                <p className="mt-1 text-sm text-[var(--muted)]">
+                  Ini tema yang sedang dipakai undanganmu sekarang.
+                </p>
+                <div className="mt-4 max-w-[220px]">
+                  <ThemePreview theme={theme} colorId={colorId} className="shadow-lg shadow-[var(--ink)]/5" />
+                  <div className="mt-2.5 flex items-center gap-2">
+                    <CheckCircle2 className="size-4 text-[var(--gold)]" aria-hidden />
+                    <p className="text-sm font-medium">{activeThemeDef.name}</p>
                   </div>
-                )
-              })}
-            </div>
+                  <button onClick={openThemePicker} className="btn btn-outline btn-sm mt-3 w-full">
+                    Ganti tema
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="mt-1 flex items-center justify-between gap-3">
+                  <p className="text-sm text-[var(--muted)]">
+                    {isPremium
+                      ? 'Semua tema & warna terbuka — pilih lalu konfirmasi di bawah.'
+                      : 'Beberapa tema gratis; tema lainnya terbuka setelah upgrade Premium.'}
+                  </p>
+                  <button onClick={cancelThemePicker} className="btn btn-ghost btn-sm shrink-0">
+                    Batal
+                  </button>
+                </div>
+                <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
+                  {THEMES.map((t) => {
+                    const locked = !isPremium && t.premium
+                    const isStaged = stagedTheme === t.id
+                    const previewColor = isStaged ? stagedColor : t.variants[0].id
+                    return (
+                      <div key={t.id} className="group text-left">
+                        <button
+                          onClick={() => stageTheme(t.id)}
+                          disabled={themeBusy}
+                          className="w-full disabled:opacity-60"
+                        >
+                          <ThemePreview
+                            theme={t.id}
+                            colorId={previewColor}
+                            className={`${isStaged ? 'ring-2 ring-[var(--berry)] ring-offset-2 ring-offset-[var(--ivory)]' : 'opacity-90 group-hover:opacity-100'}`}
+                          />
+                        </button>
+                        <div className="mt-2.5 flex items-center justify-between gap-2">
+                          <p className="text-sm font-medium">{t.name}</p>
+                          {locked && (
+                            <span className="grid size-6 shrink-0 place-items-center rounded-full bg-[var(--ink)]/80 text-white">
+                              <Lock className="size-3" aria-hidden />
+                            </span>
+                          )}
+                        </div>
+                        {/* Pilihan warna tema ini */}
+                        <div className="mt-2 flex gap-1.5">
+                          {t.variants.map((v) => {
+                            const colorActive = isStaged && stagedColor === v.id
+                            return (
+                              <button
+                                key={v.id}
+                                type="button"
+                                onClick={() => stageColor(t.id, v.id)}
+                                disabled={themeBusy}
+                                title={v.name}
+                                aria-label={`${t.name} — warna ${v.name}`}
+                                className={`size-4 rounded-full border transition-transform hover:scale-110 disabled:opacity-60 ${colorActive ? 'ring-2 ring-[var(--berry)] ring-offset-1 ring-offset-[var(--ivory)]' : ''}`}
+                                style={{ background: v.swatch[1], borderColor: v.swatch[2] }}
+                              />
+                            )
+                          })}
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+                <div className="mt-6 flex items-center gap-3 border-t border-[var(--line)] pt-5">
+                  <button
+                    onClick={confirmTheme}
+                    disabled={themeBusy || stagedTheme === theme}
+                    className="btn btn-primary btn-md"
+                  >
+                    {themeBusy
+                      ? 'Menyimpan…'
+                      : !isPremium && THEMES.find((x) => x.id === stagedTheme)?.premium
+                        ? `Upgrade ${formatIDR(PREMIUM_PRICE)}`
+                        : 'Pakai tema ini'}
+                  </button>
+                  {stagedTheme === theme && (
+                    <p className="text-xs text-[var(--muted)]">Pilih tema lain untuk mengganti.</p>
+                  )}
+                </div>
+              </>
+            )}
           </section>
 
           {/* Foto & Musik */}
