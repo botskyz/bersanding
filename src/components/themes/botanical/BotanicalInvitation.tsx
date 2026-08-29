@@ -82,15 +82,14 @@ export function BotanicalInvitation({ und }: { und: InvitationData }) {
             Assalamu&apos;alaikum Warahmatullahi Wabarakatuh
           </p>
           <p className="mx-auto mt-5 max-w-md text-sm leading-relaxed text-[#3A4A34]/80">
-            Dengan memohon rahmat dan ridha Allah SWT, kami bermaksud menyelenggarakan pernikahan
-            putra-putri kami:
+            Dengan memohon rahmat dan ridha Allah SWT, kami bermaksud menyelenggarakan pernikahan:
           </p>
-          <p className="font-script mt-8 text-[1.7rem] leading-snug text-[#2E5A41]">
-            {und.groomParents}
+          <p className="font-script mt-8 text-[2.2rem] leading-snug text-[#2E5A41]">
+            {und.groomName}
           </p>
           <p className="mt-4 text-[10px] uppercase tracking-[0.3em] text-[#3A4A34]/70">dengan</p>
-          <p className="font-script mt-4 text-[1.7rem] leading-snug text-[#2E5A41]">
-            {und.brideParents}
+          <p className="font-script mt-4 text-[2.2rem] leading-snug text-[#2E5A41]">
+            {und.brideName}
           </p>
         </section>
 
