@@ -360,7 +360,7 @@ export default function Kelola({
 
   const pickTheme = async (t: string, color?: string) => {
     const themeDef = THEMES.find((x) => x.id === t)!
-    if (!isPremium && t !== 'gardenia') {
+    if (!isPremium && themeDef.premium) {
       router.push(`/bayar?id=${und.id}&theme=${t}`)
       return
     }
