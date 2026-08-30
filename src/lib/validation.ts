@@ -14,7 +14,10 @@ export const imageRef = z
 export const audioRef = z
   .string()
   .max(9_000_000, 'Musik terlalu besar — maksimal 6 MB')
-  .refine((s) => s === '' || s.startsWith('data:audio/') || /^https?:\/\//.test(s), 'URL musik tidak valid')
+  .refine(
+    (s) => s === '' || s.startsWith('data:audio/') || s.startsWith('/') || /^https?:\/\//.test(s),
+    'URL musik tidak valid',
+  )
 
 export const mediaSchema = z.object({
   coverPhoto: imageRef.optional(),
