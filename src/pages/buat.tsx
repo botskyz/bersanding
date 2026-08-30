@@ -58,6 +58,8 @@ interface FormState {
   guestName: string
   email: string
   coverPhoto: string
+  groomPhoto: string
+  bridePhoto: string
   gallery: string[]
   musicUrl: string
   musicTitle: string
@@ -81,6 +83,8 @@ const initialForm: FormState = {
   guestName: 'Bapak/Ibu/Saudara/i',
   email: '',
   coverPhoto: '',
+  groomPhoto: '',
+  bridePhoto: '',
   gallery: [],
   musicUrl: '',
   musicTitle: '',
@@ -435,6 +439,20 @@ export default function Buat() {
                 hint="Tampil di halaman pertama undangan. Bisa dikosongkan — nanti diganti dari halaman kelola."
                 value={form.coverPhoto}
                 onChange={(v) => setField('coverPhoto', v)}
+                presets={COVER_PRESETS}
+              />
+              <PhotoPicker
+                label="Foto mempelai pria"
+                hint="Dipakai di kartu profil mempelai pria. Bisa dikosongkan — nanti pakai foto sampul."
+                value={form.groomPhoto}
+                onChange={(v) => setField('groomPhoto', v)}
+                presets={COVER_PRESETS}
+              />
+              <PhotoPicker
+                label="Foto mempelai wanita"
+                hint="Dipakai di kartu profil mempelai wanita. Bisa dikosongkan — nanti pakai foto galeri pertama."
+                value={form.bridePhoto}
+                onChange={(v) => setField('bridePhoto', v)}
                 presets={COVER_PRESETS}
               />
               <GalleryPicker

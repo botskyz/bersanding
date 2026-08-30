@@ -23,6 +23,10 @@ export const undangan = pgTable('undangan', {
   theme: text('theme').notNull().default('gardenia'),
   colorId: text('color_id').notNull().default('emerald'),
   coverPhoto: text('cover_photo').notNull().default(''),
+  // Foto individual mempelai — terpisah dari coverPhoto/gallery, dipakai
+  // khusus untuk kartu profil mempelai (mis. section "Couple" tema Botanical).
+  groomPhoto: text('groom_photo').notNull().default(''),
+  bridePhoto: text('bride_photo').notNull().default(''),
   gallery: jsonb('gallery').$type<string[]>().notNull().default([]),
   musicUrl: text('music_url').notNull().default(''),
   musicTitle: text('music_title').notNull().default(''),

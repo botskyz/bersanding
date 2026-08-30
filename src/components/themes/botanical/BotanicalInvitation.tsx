@@ -28,12 +28,14 @@ interface InvitationData {
   theme: string
   colorId: string
   coverPhoto: string
+  groomPhoto?: string
+  bridePhoto?: string
   gallery: string[]
   musicUrl: string
   musicTitle: string
 }
 
-/** Tema "Botanical Garden" \u2014 layout ilustrasi 8-halaman khusus, terpisah dari
+/** Tema "Botanical Garden" — layout ilustrasi 8-halaman khusus, terpisah dari
  * sistem tema CSS-variable generik yang dipakai tema lain (Gardenia, dst). */
 export function BotanicalInvitation({ und }: { und: InvitationData }) {
   return (
@@ -96,10 +98,10 @@ export function BotanicalInvitation({ und }: { und: InvitationData }) {
         <BotanicalCouple
           groomName={und.groomName}
           groomParents={und.groomParents}
-          groomPhoto={und.coverPhoto}
+          groomPhoto={und.groomPhoto || und.coverPhoto}
           brideName={und.brideName}
           brideParents={und.brideParents}
-          bridePhoto={und.gallery[0] || und.coverPhoto}
+          bridePhoto={und.bridePhoto || und.gallery[0] || und.coverPhoto}
         />
 
         <BotanicalEvents

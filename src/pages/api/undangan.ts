@@ -61,18 +61,90 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         to: data.email,
         subject: `Link kelola undangan ${data.groomName} & ${data.brideName} — sharehalo`,
         html: `
-          <div style="font-family: Georgia, serif; max-width: 480px; margin: 0 auto; color: #1a1a2e;">
-            <p>Halo,</p>
-            <p>Undangan <strong>${data.groomName} &amp; ${data.brideName}</strong> sudah berhasil dibuat di sharehalo.</p>
-            <p>Simpan link berikut baik-baik — dari sini kamu bisa mengubah data, foto, musik, tema, dan melihat status pembayaran kapan saja:</p>
-            <p style="margin: 24px 0;">
-              <a href="${kelolaUrl}" style="background:#006afe;color:#fff;padding:12px 24px;border-radius:999px;text-decoration:none;font-weight:600;">
-                Buka halaman kelola
-              </a>
-            </p>
-            <p style="font-size: 13px; color: #6b6b76;">Atau salin link ini: ${kelolaUrl}</p>
-            <p style="margin-top: 32px; font-size: 13px; color: #6b6b76;">— sharehalo</p>
-          </div>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Undangan Berhasil Dibuat</title>
+</head>
+<body style="margin:0; padding:0; background-color:#f7f7f7; font-family:Arial, Helvetica, sans-serif; color:#333333;">
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f7f7f7; padding:40px 20px;">
+    <tr>
+      <td align="center">
+        <!-- Email Container -->
+        <table width="100%" cellpadding="0" cellspacing="0" border="0"
+          style="max-width:600px; background-color:#ffffff; border-radius:12px; overflow:hidden;">
+          <!-- Header -->
+          <tr>
+            <td style="padding:32px 40px 20px 40px; text-align:center;">
+              <h1 style="margin:0; font-size:26px; color:#222222; font-weight:600;">
+                sharehalo
+              </h1>
+            </td>
+          </tr>
+          <!-- Content -->
+          <tr>
+            <td style="padding:20px 40px 40px 40px; font-size:16px; line-height:1.7; color:#555555;">
+              <p style="margin-top:0;">
+                Halo,
+              </p>
+              <p>
+                Undangan pernikahan <strong>${data.groomName} &amp; ${data.brideName}</strong> telah berhasil dibuat di
+                <strong>sharehalo</strong>. ✨
+              </p>
+              <p>
+                Simpan tautan berikut dengan baik. Melalui halaman ini, Anda dapat mengelola
+                undangan kapan saja, termasuk mengubah data, foto, musik, tema, serta melihat
+                status pembayaran.
+              </p>
+              <!-- Button -->
+              <table cellpadding="0" cellspacing="0" border="0" style="margin:30px auto;">
+                <tr>
+                  <td align="center"
+                    style="border-radius:8px; background-color:#222222;">
+                    <a href="${kelolaUrl}"
+                      style="display:inline-block; padding:14px 28px; font-size:16px; font-weight:600; color:#ffffff; text-decoration:none;">
+                      Buka Halaman Kelola Undangan
+                    </a>
+                  </td>
+                </tr>
+              </table>
+              <p>
+                Atau salin dan simpan tautan berikut:
+              </p>
+              <!-- Link Box -->
+              <div style="padding:16px; background-color:#f5f5f5; border-radius:8px; word-break:break-all; font-size:13px; line-height:1.6;">
+                <a href="${kelolaUrl}"
+                  style="color:#555555; text-decoration:underline;">
+                  ${kelolaUrl}
+                </a>
+              </div>
+              <p style="margin-top:28px;">
+                Sebaiknya simpan tautan ini agar Anda dapat kembali mengakses halaman
+                pengelolaan undangan kapan saja.
+              </p>
+              <p>
+                Terima kasih telah menggunakan <strong>sharehalo</strong>. 🤍
+              </p>
+              <p style="margin-top:32px; margin-bottom:0;">
+                Salam hangat,<br>
+                <strong>sharehalo</strong>
+              </p>
+            </td>
+          </tr>
+          <!-- Footer -->
+          <tr>
+            <td style="padding:20px 40px; text-align:center; background-color:#fafafa; font-size:12px; color:#999999;">
+              © ${new Date().getFullYear()} sharehalo. All rights reserved.
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
         `,
       })
     } catch (err) {

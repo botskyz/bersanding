@@ -2,9 +2,8 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/tema": "pages/tema.js",
-  "/api/undangan/[id]/theme": "pages/api/undangan/[id]/theme.js",
-  "/buat": "pages/buat.js",
   "/kelola": "pages/kelola.js",
-  "/api/undangan": "pages/api/undangan.js"
+  "/u/[slug]": "pages/u/[slug].js",
+  "/tema": "pages/tema.js",
+  "/": "pages/index.js"
 }

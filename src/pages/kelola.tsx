@@ -50,6 +50,8 @@ interface UndProps {
   colorId: string
   package: string
   coverPhoto: string
+  groomPhoto: string
+  bridePhoto: string
   gallery: string[]
   musicUrl: string
   musicTitle: string
@@ -226,6 +228,8 @@ export default function Kelola({
   const [stagedTheme, setStagedTheme] = useState<string>(und?.theme ?? 'gardenia')
   const [stagedColor, setStagedColor] = useState<string>(und?.colorId ?? 'emerald')
   const [cover, setCover] = useState(und?.coverPhoto ?? '')
+  const [groomPhoto, setGroomPhoto] = useState(und?.groomPhoto ?? '')
+  const [bridePhoto, setBridePhoto] = useState(und?.bridePhoto ?? '')
   const [gallery, setGallery] = useState<string[]>(und?.gallery ?? [])
   const [music, setMusic] = useState<MusicSelection | null>(
     und?.musicUrl ? { url: und.musicUrl, title: und.musicTitle } : null,
@@ -355,6 +359,14 @@ export default function Kelola({
   const onCover = (v: string) => {
     setCover(v)
     saveMedia({ coverPhoto: v })
+  }
+  const onGroomPhoto = (v: string) => {
+    setGroomPhoto(v)
+    saveMedia({ groomPhoto: v })
+  }
+  const onBridePhoto = (v: string) => {
+    setBridePhoto(v)
+    saveMedia({ bridePhoto: v })
   }
   const onGallery = (v: string[]) => {
     setGallery(v)
@@ -685,6 +697,20 @@ export default function Kelola({
                 hint="Tampil di halaman pertama undangan dengan efek parallax halus."
                 value={cover}
                 onChange={onCover}
+                presets={COVER_PRESETS}
+              />
+              <PhotoPicker
+                label="Foto mempelai pria"
+                hint="Dipakai di kartu profil mempelai pria."
+                value={groomPhoto}
+                onChange={onGroomPhoto}
+                presets={COVER_PRESETS}
+              />
+              <PhotoPicker
+                label="Foto mempelai wanita"
+                hint="Dipakai di kartu profil mempelai wanita."
+                value={bridePhoto}
+                onChange={onBridePhoto}
                 presets={COVER_PRESETS}
               />
               <GalleryPicker

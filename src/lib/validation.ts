@@ -21,6 +21,8 @@ export const audioRef = z
 
 export const mediaSchema = z.object({
   coverPhoto: imageRef.optional(),
+  groomPhoto: imageRef.optional(),
+  bridePhoto: imageRef.optional(),
   gallery: z.array(imageRef).max(6, 'Maksimal 6 foto galeri').optional(),
   musicUrl: audioRef.optional(),
   musicTitle: z.string().trim().max(100, 'Judul musik maksimal 100 huruf').optional(),
@@ -53,6 +55,8 @@ export const coreSchema = z.object({
 // Skema lengkap — dipakai saat membuat undangan (termasuk foto & musik).
 export const undanganSchema = coreSchema.extend({
   coverPhoto: imageRef.default(''),
+  groomPhoto: imageRef.default(''),
+  bridePhoto: imageRef.default(''),
   gallery: z.array(imageRef).max(6, 'Maksimal 6 foto galeri').default([]),
   musicUrl: audioRef.default(''),
   musicTitle: z.string().trim().max(100).default(''),

@@ -24,6 +24,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const patch: Record<string, unknown> = {}
   if (parsed.data.coverPhoto !== undefined) patch.coverPhoto = parsed.data.coverPhoto
+  if (parsed.data.groomPhoto !== undefined) patch.groomPhoto = parsed.data.groomPhoto
+  if (parsed.data.bridePhoto !== undefined) patch.bridePhoto = parsed.data.bridePhoto
   if (parsed.data.gallery !== undefined) patch.gallery = parsed.data.gallery
   if (parsed.data.musicUrl !== undefined) patch.musicUrl = parsed.data.musicUrl
   if (parsed.data.musicTitle !== undefined) patch.musicTitle = parsed.data.musicTitle
