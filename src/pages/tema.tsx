@@ -19,6 +19,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       groom: u.groomName,
       bride: u.brideName,
       premium: u.package === 'premium',
+      // Dibawa terus ke /kelola supaya link-nya tetap jalan walau cookie
+      // sesi kehapus nanti (mis. buka dari device/browser lain).
+      adminToken: u.adminToken,
     },
   }
 }
@@ -28,11 +31,13 @@ export default function Tema({
   groom,
   bride,
   premium,
+  adminToken,
 }: {
   id: string
   groom: string
   bride: string
   premium: boolean
+  adminToken: string
 }) {
   const router = useRouter()
   const [busy, setBusy] = useState<string | null>(null)
@@ -58,7 +63,8 @@ export default function Tema({
         setError('Terjadi kesalahan saat menyimpan tema. Coba lagi.')
         return
       }
-      router.push(premium ? '/kelola?theme=1' : '/kelola?created=1')
+      const flag = premium ? 'theme' : 'created'
+      router.push(`/kelola?${flag}=1&token=${adminToken}`)
     } finally {
       setBusy(null)
     }
@@ -157,7 +163,7 @@ export default function Tema({
             <Link href="/buat" className="btn btn-ghost btn-md">
               ← Ubah data lagi
             </Link>
-            <Link href="/kelola" className="btn btn-outline btn-md">
+            <Link href={`/kelola?token=${adminToken}`} className="btn btn-outline btn-md">
               Nanti saja — ke halaman kelola
             </Link>
           </div>
