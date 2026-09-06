@@ -2,8 +2,11 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/kelola": "pages/kelola.js",
-  "/u/[slug]": "pages/u/[slug].js",
+  "/buat": "pages/buat.js",
+  "/api/undangan/[id]/theme": "pages/api/undangan/[id]/theme.js",
   "/tema": "pages/tema.js",
-  "/": "pages/index.js"
+  "/": "pages/index.js",
+  "/u/[slug]": "pages/u/[slug].js",
+  "/api/undangan": "pages/api/undangan.js",
+  "/kelola": "pages/kelola.js"
 }

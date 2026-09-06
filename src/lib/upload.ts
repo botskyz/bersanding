@@ -1,7 +1,37 @@
 // Helper klien untuk upload foto & musik — dipakai komponen PhotoPicker/MusicPicker.
 // Foto dikecilkan lewat canvas (max 1600px, JPEG 0.82) agar ringan disimpan & dibuka di ponsel.
 
-export function fileToImageDataUrl(file: File, maxDim = 1600, quality = 0.82): Promise<string> {
+function isHeicFile(file: File): boolean {
+  const type = file.type.toLowerCase()
+  return (
+    type === 'image/heic' ||
+    type === 'image/heif' ||
+    /\.hei[cf]$/i.test(file.name)
+  )
+}
+
+async function normalizeToDecodableFile(file: File): Promise<File> {
+  if (!isHeicFile(file)) return file
+
+  // Import dinamis: biar bundle awal tidak ikut bawa heic2any kalau tidak dipakai
+  const heic2any = (await import('heic2any')).default
+
+  try {
+    const converted = await heic2any({ blob: file, toType: 'image/jpeg', quality: 0.9 })
+    const blob = Array.isArray(converted) ? converted[0] : converted
+    return new File(
+      [blob],
+      file.name.replace(/\.hei[cf]$/i, '.jpg'),
+      { type: 'image/jpeg' }
+    )
+  } catch {
+    throw new Error('Gagal memproses foto HEIC. Coba ubah dulu ke JPG/PNG.')
+  }
+}
+
+export async function fileToImageDataUrl(file: File, maxDim = 1600, quality = 0.82): Promise<string> {
+  const normalizedFile = await normalizeToDecodableFile(file)
+
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
     reader.onerror = () => reject(new Error('Gagal membaca file'))
@@ -24,7 +54,7 @@ export function fileToImageDataUrl(file: File, maxDim = 1600, quality = 0.82): P
       }
       img.src = String(reader.result)
     }
-    reader.readAsDataURL(file)
+    reader.readAsDataURL(normalizedFile)
   })
 }
 
